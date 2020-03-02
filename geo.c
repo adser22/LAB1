@@ -1,48 +1,61 @@
 #include<stdio.h>
 #define _USE_MATH_DEFINES
 #include<math.h>
-float circle (float x,float y,float r,float *p,float*s)
+void circle (int n,float r,float *p,float*s)
 {
 	float r2;
-	*p = 2 * M_PI * r;
-	r2 = pow(r,2);
-	*s = M_PI * r2;
-	return 0;
+	{
+		*p = 2 * M_PI * r;
+		r2 = pow(r,2);
+		*s = M_PI * r2;
+	}
 }	
 
 int main()
 {	
-	int n;
-	int i;
+	int n,i,j;
 	printf("Введите количество окружностей\n");
-	scanf ("%d", &i);
-	n = 3*i;
-	float C[1000];
-		int j = 1;
-		float x,y,r,p,s;
-		for(i=0;i <= n;i++)
+	scanf ("%d", &n);
+	float X[n],Y[n],R[n],p,s,x,y,d;
+	
+		for(i=0;i < n;i++)
 		{
-			printf("Введите координаты центра окржности и его радиус:\n");
+			printf("%d.Введите координаты центра окржности и его радиус:\n",i);
 			printf("X = ");
-			scanf ("%f", &C[i]);
-			x = C[i];
-			i++;
+			scanf ("%f", &X[i]);
 			printf("Y = ");
-			scanf ("%f", &C[i]);
-			y = C[i];
-			i++;
+			scanf ("%f", &Y[i]);
 			printf("R = ");
-			scanf ("%f", &C[i]);
-			r = C[i];
-			i++;
+			scanf ("%f", &R[i]);
 			printf("\n");
-			circle(x,y,r,&p,&s);
-			printf("%d. circle(%f %f, %f)\n ",j,x,y,r);
+			
+		}
+			
+	
+			
+		for(i=0;i < n;i++)
+		{
+			float r;
+			printf("%d. circle(%f %f, %f)\n ",i,X[i],Y[i],R[i]);
+			r = R[i];
+			circle(n,r,&p,&s);
 			printf("perimeter = %f \n ",p);
 			printf("area = %f \n",s);
-			j++;
-		}
-	
+		}		
+			
+			for (i = 0;i < n;i++)
+			{
+				for (j=i+1;j < n;j++)
+				{
+					
+				x = X[i]-X[j];
+				y = Y[i]-Y[j];
+				d = sqrt(pow(x,2)+pow(y,2));
+				if (d<=(R[i]+R[j]))
+					printf ("Окржности №%d и №%d пересекаются\n",i,j);
+				}
+			}
+			
 	return 0;
 }
 
